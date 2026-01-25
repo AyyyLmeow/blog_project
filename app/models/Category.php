@@ -19,4 +19,19 @@ class Category
 
         return $categories;
     }
+
+    public static function findById(int $id): ?array
+    {
+        $stmt = Database::get()->prepare("
+            SELECT id, name, description
+            FROM categories
+            WHERE id = :id
+        ");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $category = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $category ?: null;
+    }
 }

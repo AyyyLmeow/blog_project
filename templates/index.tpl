@@ -1,23 +1,24 @@
 {extends file="layouts/main.tpl"}
 
 {block name="content"}
-    <h2>Категории и последние посты</h2>
+    <h1>Блог</h1>
 
     {foreach $categories as $category}
-        <h3>{$category.name}</h3>
-        <p>{$category.description}</p>
+        <section>
+            <h2>{$category.name}</h2>
+            <p>{$category.description}</p>
 
-        <ul>
-            {foreach $category.posts as $post}
-                <li>
-                    <strong>{$post.title}</strong><br>
-                    {$post.description}<br>
-                    Просмотры: {$post.views}
-                </li>
-            {/foreach}
-        </ul>
+            <ul>
+                {foreach $category.posts as $post}
+                    <li>
+                        <strong>{$post.title}</strong><br>
+                        {$post.description}<br>
+                        <a href="post.php?id={$post.id}">Читать полностью</a>
+                    </li>
+                {/foreach}
+            </ul>
 
-        <a href="category.php?id={$category.id}">Все статьи</a>
-        <hr>
+            <a href="category.php?id={$category.id}" class="btn">Все статьи</a>
+        </section>
     {/foreach}
 {/block}

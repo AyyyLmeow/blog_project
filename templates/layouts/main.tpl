@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>My Blog</title>
+    <title>{$title|default:"Блог"}</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h1>My Blog</h1>
