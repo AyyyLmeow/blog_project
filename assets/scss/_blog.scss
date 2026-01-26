@@ -1,15 +1,4 @@
-.btn {
-  display: inline-block;
-  padding: 8px 16px;
-  background: #3498db;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background 0.3s;
-}
-.btn:hover {
-  background: #2980b9;
-}
+@use 'variables';
 
 .container {
   width: 1100px;
@@ -29,17 +18,19 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-}
-.category-header h2 {
-  margin: 0;
-  text-transform: uppercase;
-  font-size: 18px;
-  letter-spacing: 1px;
-}
-.category-header .view-all {
-  font-size: 14px;
-  text-decoration: none;
-  color: #3498db;
+
+  h2 {
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .view-all {
+    font-size: 14px;
+    text-decoration: none;
+    color: #3498db;
+  }
 }
 
 .posts-grid {
@@ -52,12 +43,13 @@
   background: #fff;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  }
 }
 
 .post-image img {
@@ -69,10 +61,11 @@
 
 .post-content {
   padding: 15px;
-}
-.post-content h3 {
-  margin: 0 0 8px;
-  font-size: 16px;
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+  }
 }
 
 .post-date {
@@ -81,56 +74,64 @@
   margin-bottom: 10px;
 }
 
+
 .read-more {
-  color: #3498db;
-  border-bottom: 1px solid #3498db;
+  color: variables.$primary-color;
+  border-bottom: 1px solid variables.$primary-color;
 }
 
 .category-page-header {
   margin: 30px 0 20px;
-}
-.category-page-header h1 {
-  margin-bottom: 10px;
-}
-.category-page-header p {
-  color: #666;
-  max-width: 700px;
+
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #666;
+    max-width: 700px;
+  }
 }
 
 .category-toolbar {
   margin-bottom: 20px;
   font-size: 14px;
-}
-.category-toolbar .sort a {
-  color: #3498db;
-  text-decoration: none;
-  margin: 0 5px;
-}
-.category-toolbar .sort a.active {
-  font-weight: bold;
-  border-bottom: 2px solid #3498db;
+
+  .sort a {
+    color: variables.$primary-color;
+    text-decoration: none;
+    margin: 0 5px;
+
+    &.active {
+      font-weight: bold;
+      border-bottom: 2px solid variables.$primary-color;
+    }
+  }
 }
 
 .pagination {
   margin-top: 40px;
   text-align: center;
-}
-.pagination a {
-  display: inline-block;
-  margin: 0 5px;
-  padding: 6px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  background: #eee;
-  color: #333;
-}
-.pagination a.active {
-  background: #3498db;
-  color: #fff;
-}
-.pagination a:hover {
-  background: #2980b9;
-  color: #fff;
+
+  a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    background: #eee;
+    color: #333;
+
+    &.active {
+      background: variables.$primary-color;
+      color: #fff;
+    }
+
+    &:hover {
+      background: variables.$primary-hover;
+      color: #fff;
+    }
+  }
 }
 
 .post-page {
@@ -162,16 +163,18 @@
   line-height: 1.7;
   font-size: 16px;
   color: #333;
-}
-.single-post-content p {
-  margin-bottom: 16px;
+
+  p {
+    margin-bottom: 16px;
+  }
 }
 
 .related-posts {
   margin-top: 40px;
-}
-.related-posts h2 {
-  margin-bottom: 20px;
+
+  h2 {
+    margin-bottom: 20px;
+  }
 }
 
 .site-header {
@@ -191,7 +194,7 @@
   font-size: 20px;
   font-weight: bold;
   text-decoration: none;
-  color: #3498db;
+  color: variables.$primary-color;
 }
 
 .main-nav a {
@@ -199,9 +202,10 @@
   text-decoration: none;
   color: #333;
   font-size: 14px;
-}
-.main-nav a:hover {
-  color: #3498db;
+
+  &:hover {
+    color: variables.$primary-color;
+  }
 }
 
 .site-content {
@@ -220,28 +224,5 @@
   text-align: center;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  background: #f9fafb;
-}
 
-h1, h2, h3 {
-  color: #3498db;
-}
 
-section {
-  margin-bottom: 40px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-ul li {
-  margin-bottom: 15px;
-}
-
-/*# sourceMappingURL=style.css.map */

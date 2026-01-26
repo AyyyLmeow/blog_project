@@ -1,25 +1,50 @@
 {extends file="layouts/main.tpl"}
 
 {block name="content"}
-    <h2>{$post.title}</h2>
+    <div class="container post-page">
 
-    {if $post.image}
-        <img src="/images/{$post.image}" alt="{$post.title}" style="max-width:400px;">
-    {/if}
+        <article class="single-post">
+            <div class="single-post-image">
+                <img src="/images/{$post.image}" alt="{$post.title}">
+            </div>
 
-    <p><strong>Категории:</strong>
-        {foreach $categories as $cat}
-            <a href="category.php?id={$cat.id}">{$cat.name}</a>{if !$cat@last}, {/if}
-        {/foreach}
-    </p>
+            <h1 class="single-post-title">{$post.title}</h1>
 
-    <p><strong>Просмотры:</strong> {$post.views}</p>
-    <p>{$post.content|nl2br}</p>
+            <div class="single-post-meta">
+                {$post.created_at|date_format:"%b %e, %Y"} · 👁 {$post.views}
+            </div>
 
-    <h3>Похожие статьи</h3>
-    <ul>
-        {foreach $similar as $s}
-            <li><a href="post.php?id={$s.id}">{$s.title}</a></li>
-        {/foreach}
-    </ul>
+            <div class="single-post-content">
+                {$post.content nofilter}
+            </div>
+        </article>
+
+        {if $related_posts}
+            <section class="related-posts">
+                <h2>Похожие статьи</h2>
+
+                <div class="posts-grid">
+                    {foreach $related_posts as $rel}
+                        <article class="post-card">
+                            <div class="post-image">
+                                <img src="/images/{$rel.image}" alt="{$rel.title}">
+                            </div>
+
+                            <div class="post-content">
+                                <h3>{$rel.title}</h3>
+                                <div class="post-date">
+                                    {$rel.created_at|date_format:"%b %e, %Y"}
+                                </div>
+
+                                <p>{$rel.description}</p>
+
+                                <a href="post.php?id={$rel.id}" class="read-more">Continue Reading</a>
+                            </div>
+                        </article>
+                    {/foreach}
+                </div>
+            </section>
+        {/if}
+
+    </div>
 {/block}

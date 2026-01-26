@@ -1,15 +1,17 @@
-@import 'variables';
-@import 'buttons';
+@use 'variables';
+@use 'buttons';
+@use 'blog';
 
 body {
-  font-family: $font-family;
-  color: $text-color;
+  font-family: variables.$font-family;
+  color: variables.$text-color;
   margin: 0;
   padding: 0;
+  background: #f9fafb;
 }
 
 h1, h2, h3 {
-  color: $primary-color;
+  color: variables.$primary-color;
 }
 
 section {

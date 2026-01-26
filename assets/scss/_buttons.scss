@@ -1,13 +1,15 @@
+@use 'variables';
+
 .btn {
   display: inline-block;
   padding: 8px 16px;
-  background: $primary-color;
+  background: variables.$primary-color;
   color: #fff;
   text-decoration: none;
   border-radius: 4px;
   transition: background 0.3s;
 
   &:hover {
-    background: $primary-hover;
+    background: variables.$primary-hover;
   }
 }

@@ -1,2 +1,7 @@
 /vendor
 /.idea
+/templates_c
+/vendor/
+/templates_c/*
+/public/css/*.map
+/.env

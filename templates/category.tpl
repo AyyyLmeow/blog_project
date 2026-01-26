@@ -1,33 +1,53 @@
 {extends file="layouts/main.tpl"}
 
 {block name="content"}
-    <h2>{$category.name}</h2>
-    <p>{$category.description}</p>
+    <div class="container">
 
-    <a href="?id={$category.id}&sort=date">Сортировать по дате</a> |
-    <a href="?id={$category.id}&sort=views">Сортировать по просмотрам</a>
+        <div class="category-page-header">
+            <h1>{$category.name}</h1>
+            <p>{$category.description}</p>
+        </div>
 
-    <ul>
-        {foreach $posts as $post}
-            <li>
-                <strong>{$post.title}</strong><br>
-                {$post.description}<br>
-                Просмотры: {$post.views}<br>
-                Дата: {$post.created_at}<br>
-                <a href="post.php?id={$post.id}">Читать полностью</a>
-            </li>
-        {/foreach}
-    </ul>
+        <div class="category-toolbar">
+            <div class="sort">
+                Сортировать:
+                <a href="?id={$category.id}&sort=date" class="{if $sort=='date'}active{/if}">По дате</a> |
+                <a href="?id={$category.id}&sort=views" class="{if $sort=='views'}active{/if}">По просмотрам</a>
+            </div>
+        </div>
 
-    <div>
-        {if $page > 1}
-            <a href="?id={$category.id}&sort={$sort}&page={$page-1}">← Назад</a>
+        <div class="posts-grid">
+            {foreach $posts as $post}
+                <article class="post-card">
+                    <div class="post-image">
+                        <img src="/images/{$post.image}" alt="{$post.title}">
+                    </div>
+
+                    <div class="post-content">
+                        <h3>{$post.title}</h3>
+                        <div class="post-date">
+                            {$post.created_at|date_format:"%b %e, %Y"} · 👁 {$post.views}
+                        </div>
+
+                        <p>{$post.description}</p>
+
+                        <a href="post.php?id={$post.id}" class="read-more">Continue Reading</a>
+                    </div>
+                </article>
+            {/foreach}
+        </div>
+
+        {* ПАГИНАЦИЯ *}
+        {if $total_pages > 1}
+            <div class="pagination">
+                {section name=p start=1 loop=$total_pages+1}
+                    <a href="?id={$category.id}&sort={$sort}&page={$smarty.section.p.index}"
+                       class="{if $page == $smarty.section.p.index}active{/if}">
+                        {$smarty.section.p.index}
+                    </a>
+                {/section}
+            </div>
         {/if}
 
-        Страница {$page} из {$totalPages}
-
-        {if $page < $totalPages}
-            <a href="?id={$category.id}&sort={$sort}&page={$page+1}">Вперед →</a>
-        {/if}
     </div>
 {/block}
