@@ -8,11 +8,15 @@ use App\Models\Post;
 $id = $_GET['id'] ?? null;
 if (!$id) die('Статья не указана');
 
-$post = Post::findById($id);
-if (!$post) die('Статья не найдена');
 
-// Увеличиваем просмотры
-Post::incrementViews($id);
+$post = Post::findById($id);
+
+if($post){
+    Post::incrementViews($id);
+}else{
+    die('Статья не найдена');
+}
+
 
 // Получаем категории статьи
 $categories = Post::getCategories($id);

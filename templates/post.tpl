@@ -9,9 +9,10 @@
             </div>
 
             <h1 class="single-post-title">{$post.title}</h1>
+            <h2 class="single-post-title">Категории: {$post.categories}</h2>
 
             <div class="single-post-meta">
-                {$post.created_at|date_format:"%b %e, %Y"} · 👁 {$post.views}
+                {$post.created_at|date_format:"%b %e, %Y"} · Просмотров 👁 {$post.views}
             </div>
 
             <div class="single-post-content">
@@ -19,26 +20,26 @@
             </div>
         </article>
 
-        {if $related_posts}
+        {if $similar}
             <section class="related-posts">
                 <h2>Похожие статьи</h2>
 
                 <div class="posts-grid">
-                    {foreach $related_posts as $rel}
+                    {foreach $similar as $sim}
                         <article class="post-card">
                             <div class="post-image">
-                                <img src="/images/{$rel.image}" alt="{$rel.title}">
+                                <img src="/images/{$sim.image}" alt="{$sim.title}">
                             </div>
 
                             <div class="post-content">
-                                <h3>{$rel.title}</h3>
+                                <h3>{$sim.title}</h3>
                                 <div class="post-date">
-                                    {$rel.created_at|date_format:"%b %e, %Y"}
+                                    {$sim.created_at|date_format:"%b %e, %Y"}
                                 </div>
 
-                                <p>{$rel.description}</p>
+                                <p>{$sim.description}</p>
 
-                                <a href="post.php?id={$rel.id}" class="read-more">Continue Reading</a>
+                                <a href="post.php?id={$sim.id}" class="read-more">Continue Reading</a>
                             </div>
                         </article>
                     {/foreach}

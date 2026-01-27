@@ -9,16 +9,50 @@ class Category
 {
     public static function allWithPosts(): array
     {
-        $categories = Database::get()
-            ->query("SELECT id, name, description FROM categories")
-            ->fetchAll(PDO::FETCH_ASSOC);
+        $db = Database::get();
 
+        // Берём только категории, в которых есть хотя бы один пост
+        $sql = "
+        SELECT c.id, c.name, c.description
+        FROM categories c
+        WHERE EXISTS (
+            SELECT 1
+            FROM post_category pc
+            JOIN posts p ON p.id = pc.post_id
+            WHERE pc.category_id = c.id
+        )
+        ORDER BY c.name
+    ";
+
+        $categories = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+        // Подгружаем по 3 последних поста для каждой категории
         foreach ($categories as &$category) {
-            $category['posts'] = Post::getLatestByCategory($category['id'], 3);
+            $category['posts'] = self::getLastPosts($category['id'], 3);
         }
 
         return $categories;
     }
+
+    public static function getLastPosts(int $categoryId, int $limit = 3): array
+    {
+        $stmt = Database::get()->prepare("
+        SELECT p.id, p.title, p.image, p.created_at, p.description, p.views
+        FROM posts p
+        JOIN post_category pc ON pc.post_id = p.id
+        WHERE pc.category_id = :category_id
+        ORDER BY p.created_at DESC
+        LIMIT :limit
+    ");
+
+        $stmt->bindValue(':category_id', $categoryId, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
     public static function findById(int $id): ?array
     {

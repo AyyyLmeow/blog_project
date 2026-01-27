@@ -11,9 +11,20 @@ class Post
     public static function findById(int $id): ?array
     {
         $stmt = Database::get()->prepare("
-            SELECT p.id, p.title, p.description, p.content, p.image, p.views, p.created_at
-            FROM posts p
-            WHERE p.id = :id
+            SELECT
+            p.id,
+            p.title,
+            p.description,
+            p.content,
+            p.image,
+            p.views,
+            p.created_at,
+            GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
+        FROM posts p
+                 LEFT JOIN post_category pc ON pc.post_id = p.id
+                 LEFT JOIN categories c ON c.id = pc.category_id
+        WHERE p.id = :id
+        GROUP BY p.id
         ");
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -96,19 +107,23 @@ class Post
     public static function getSimilar(int $postId, int $limit = 3): array
     {
         $stmt = Database::get()->prepare("
-            SELECT DISTINCT p2.id, p2.title
-            FROM post_category pc1
-            JOIN post_category pc2 ON pc1.category_id = pc2.category_id
-            JOIN posts p2 ON pc2.post_id = p2.id
-            WHERE pc1.post_id = :post_id AND p2.id != :post_id
-            LIMIT :limit
-        ");
+        SELECT DISTINCT p2.id, p2.title, p2.image, p2.created_at,p2.description
+        FROM post_category pc1
+        JOIN post_category pc2 ON pc1.category_id = pc2.category_id
+        JOIN posts p2 ON pc2.post_id = p2.id
+        WHERE pc1.post_id = :post_id 
+          AND p2.id != :post_id
+        ORDER BY p2.created_at DESC
+        LIMIT :limit
+    ");
+
         $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     // Увеличить количество просмотров
     public static function incrementViews(int $postId): void
