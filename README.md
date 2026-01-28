@@ -17,15 +17,19 @@ sass assets/scss/main.scss public/css/style.css
 
 docker compose up --build -d
 
-## 5. Перезапуск проекта (опционально)
+## 5. Открытие в браузере
+
+Проект будет доступен по адресу http://localhost:8081/
+
+## 6. Перезапуск проекта (опционально)
 
 docker compose down -v
 docker compose up --build -d
 
-## 6. Подключение к базе данных (опционально)
+## 7. Подключение к базе данных (опционально)
 
 docker exec -it blog_mysql mysql -uroot -proot blog
 
-## 7. Автоматическая компиляция SCSS стилей при изменениях (опционально)
+## 8. Автоматическая компиляция SCSS стилей при изменениях (опционально)
 
 sass --watch assets/scss/main.scss:public/css/style.css
