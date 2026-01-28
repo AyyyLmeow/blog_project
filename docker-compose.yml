@@ -13,7 +13,9 @@ services:
       - php
 
   php:
-    build: ./docker/php
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
     container_name: blog_php
     volumes:
       - ./:/var/www

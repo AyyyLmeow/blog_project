@@ -31,7 +31,7 @@
 
                         <p>{$post.description}</p>
 
-                        <a href="post.php?id={$post.id}" class="read-more">Continue Reading</a>
+                        <a href="post.php?id={$post.id}" class="read-more">Читать полностью</a>
                     </div>
                 </article>
             {/foreach}

@@ -8,7 +8,7 @@
             <section class="category-section">
                 <div class="category-header">
                     <h2>{$category.name}</h2>
-                    <a href="category.php?id={$category.id}" class="view-all">View All</a>
+                    <a href="category.php?id={$category.id}" class="view-all">Смотреть Всё</a>
                 </div>
 
                 <div class="posts-grid">
@@ -26,7 +26,7 @@
 
                                 <p>{$post.description}</p>
 
-                                <a href="post.php?id={$post.id}" class="read-more">Continue Reading</a>
+                                <a href="post.php?id={$post.id}" class="read-more">Читать полностью</a>
                             </div>
                         </article>
                     {/foreach}
