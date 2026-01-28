@@ -68,4 +68,45 @@ class Category
 
         return $category ?: null;
     }
+
+    public static function countPosts(int $categoryId): int
+    {
+        $stmt = Database::get()->prepare("
+        SELECT COUNT(DISTINCT p.id)
+        FROM posts p
+        JOIN post_category pc ON pc.post_id = p.id
+        WHERE pc.category_id = :category_id
+    ");
+
+        $stmt->execute(['category_id' => $categoryId]);
+        return (int)$stmt->fetchColumn();
+    }
+
+    public static function getPostsPaginated(int $categoryId, string $sort, int $limit, int $offset): array
+    {
+        $allowedSort = [
+            'date' => 'p.created_at DESC',
+            'views' => 'p.views DESC'
+        ];
+
+        $orderBy = $allowedSort[$sort] ?? $allowedSort['date'];
+
+        $sql = "
+        SELECT DISTINCT p.id, p.title, p.description, p.image, p.views, p.created_at
+        FROM posts p
+        JOIN post_category pc ON pc.post_id = p.id
+        WHERE pc.category_id = :category_id
+        ORDER BY $orderBy
+        LIMIT :limit OFFSET :offset
+    ";
+
+        $stmt = Database::get()->prepare($sql);
+        $stmt->bindValue(':category_id', $categoryId, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

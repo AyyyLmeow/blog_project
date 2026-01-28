@@ -220,6 +220,21 @@
   text-align: center;
 }
 
+.pagination {
+  margin-top: 30px;
+}
+.pagination a, .pagination strong {
+  margin-right: 8px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  background: #eee;
+}
+.pagination strong {
+  background: #4f46e5;
+  color: white;
+}
+
 body {
   font-family: Arial, sans-serif;
   color: #333;

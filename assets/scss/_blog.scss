@@ -225,4 +225,22 @@
 }
 
 
+.pagination {
+  margin-top: 30px;
+
+  a, strong {
+    margin-right: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    background: #eee;
+  }
+
+  strong {
+    background: #4f46e5;
+    color: white;
+  }
+}
+
+
 

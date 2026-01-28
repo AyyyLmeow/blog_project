@@ -37,17 +37,20 @@
             {/foreach}
         </div>
 
-        {* ПАГИНАЦИЯ *}
-        {if $total_pages > 1}
+        {if $totalPages > 1}
             <div class="pagination">
-                {section name=p start=1 loop=$total_pages+1}
-                    <a href="?id={$category.id}&sort={$sort}&page={$smarty.section.p.index}"
-                       class="{if $page == $smarty.section.p.index}active{/if}">
-                        {$smarty.section.p.index}
-                    </a>
+                {section name=page start=1 loop=$totalPages+1}
+                    {if $smarty.section.page.index == $currentPage}
+                        <strong>{$smarty.section.page.index}</strong>
+                    {else}
+                        <a href="?id={$category.id}&sort={$sort}&page={$smarty.section.page.index}">
+                            {$smarty.section.page.index}
+                        </a>
+                    {/if}
                 {/section}
             </div>
         {/if}
+
 
     </div>
 {/block}
